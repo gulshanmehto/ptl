@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 39 52% 94%;
+    --foreground: 31 16% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 31 16% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 31 16% 15%;
+    --primary: 340 78% 59%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 39 44% 89%;
+    --secondary-foreground: 31 16% 15%;
+    --muted: 39 44% 89%;
+    --muted-foreground: 30 11% 33%;
+    --accent: 340 78% 59%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 41 40% 85%;
+    --input: 41 40% 85%;
+    --ring: 340 78% 59%;
+    --chart-1: 346 88% 68%;
+    --chart-2: 145 46% 51%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 1rem;
+    --font-heading: 'Instrument Serif', ui-serif, Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sidebar-background: 45 56% 97%;
+    --sidebar-foreground: 28 4% 26%;
+    --sidebar-primary: 28 4% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 45 30% 94%;
+    --sidebar-accent-foreground: 28 4% 10%;
+    --sidebar-border: 45 30% 90%;
+    --sidebar-ring: 346 88% 68%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .marquee-viewport {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 1.25rem;
+    width: max-content;
+    animation: marquee var(--marquee-duration, 40s) linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
