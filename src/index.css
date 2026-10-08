@@ -4,45 +4,87 @@
 
 @layer base {
   :root {
-    --background: 39 52% 94%;
-    --foreground: 31 16% 15%;
-    --card: 0 0% 100%;
-    --card-foreground: 31 16% 15%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 31 16% 15%;
-    --primary: 340 78% 59%;
+    --background: 240 6% 4%;
+    --foreground: 216 44% 91%;
+    --card: 240 6% 6%;
+    --card-foreground: 216 44% 91%;
+    --popover: 240 6% 6%;
+    --popover-foreground: 216 44% 91%;
+    --primary: 0 100% 45%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 39 44% 89%;
-    --secondary-foreground: 31 16% 15%;
-    --muted: 39 44% 89%;
-    --muted-foreground: 30 11% 33%;
-    --accent: 340 78% 59%;
+    --secondary: 240 5% 12%;
+    --secondary-foreground: 216 44% 91%;
+    --muted: 240 5% 12%;
+    --muted-foreground: 216 20% 65%;
+    --accent: 0 100% 45%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 41 40% 85%;
-    --input: 41 40% 85%;
-    --ring: 340 78% 59%;
-    --chart-1: 346 88% 68%;
-    --chart-2: 145 46% 51%;
-    --chart-3: 197 37% 24%;
+    --destructive: 0 100% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 5% 14%;
+    --input: 240 5% 14%;
+    --ring: 0 100% 45%;
+    --chart-1: 0 100% 45%;
+    --chart-2: 216 44% 91%;
+    --chart-3: 135 100% 50%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 1rem;
-    --font-heading: 'Instrument Serif', ui-serif, Georgia, serif;
-    --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-    --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --sidebar-background: 45 56% 97%;
-    --sidebar-foreground: 28 4% 26%;
-    --sidebar-primary: 28 4% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 45 30% 94%;
-    --sidebar-accent-foreground: 28 4% 10%;
-    --sidebar-border: 45 30% 90%;
-    --sidebar-ring: 346 88% 68%;
+    --radius: 0.25rem;
+    --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --sidebar-background: 240 6% 6%;
+    --sidebar-foreground: 216 44% 91%;
+    --sidebar-primary: 0 100% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 5% 12%;
+    --sidebar-accent-foreground: 216 44% 91%;
+    --sidebar-border: 240 5% 14%;
+    --sidebar-ring: 0 100% 45%;
   }
 }
+
+@layer utilities {
+  @keyframes status-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(0 100% 45% / 0.6); }
+    50% { box-shadow: 0 0 0 12px hsl(0 100% 45% / 0); }
+  }
+  .animate-status-pulse { animation: status-pulse 2s ease-out infinite; }
+
+  @keyframes scan-line {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+  .animate-scan { animation: scan-line 4s linear infinite; }
+
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    48% { opacity: 1; }
+    50% { opacity: 0.4; }
+    52% { opacity: 1; }
+  }
+  .animate-flicker { animation: flicker 3s ease-in-out infinite; }
+
+  .text-stroke-silver {
+    -webkit-text-stroke: 2px hsl(216 44% 91% / 0.35);
+    color: transparent;
+  }
+  .text-stroke-red {
+    -webkit-text-stroke: 2px hsl(0 100% 45% / 0.5);
+    color: transparent;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, hsl(240 5% 14% / 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(240 5% 14% / 0.5) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  }
+}
+
+
 
 @layer base {
   * {
@@ -54,34 +96,7 @@
   }
 
   ::selection {
-    background: hsl(var(--primary) / 0.25);
-  }
-}
-
-@layer utilities {
-  .font-display {
-    font-family: var(--font-display);
-  }
-  .marquee-viewport {
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-  }
-  .marquee-track {
-    display: flex;
-    gap: 1.25rem;
-    width: max-content;
-    animation: marquee var(--marquee-duration, 40s) linear infinite;
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    transition-duration: 0.001ms !important;
+    background: hsl(0 100% 45%);
+    color: hsl(0 0% 100%);
   }
 }

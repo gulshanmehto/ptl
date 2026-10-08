@@ -13,6 +13,24 @@ export const IMAGE_LOAD_MODE = {
 const DEVICE_PIXEL_RATIOS = [1, 2, 3]
 const MAX_DIMENSION = 6000
 
+export function splitImageProps(props) {
+  const wrapperProps = {}
+  const imageProps = {}
+  for (const [key, value] of Object.entries(props)) {
+    if (key.startsWith("data-")) wrapperProps[key] = value
+    else imageProps[key] = value
+  }
+  return { wrapperProps, imageProps }
+}
+
+export function getImagePreviewClassName(className, currentClassName, baselineClassName) {
+  const sourceClasses = new Set((className || "").split(/\s+/))
+  const baselineClasses = new Set(baselineClassName.split(/\s+/))
+  return currentClassName.split(/\s+/).filter((token) =>
+    !["inline-block", "relative"].includes(token) || !baselineClasses.has(token) || sourceClasses.has(token)
+  ).join(" ")
+}
+
 /** Returns transform metadata only for canonical public Wix image URLs. */
 export function parseWixMediaUrl(src) {
   try {
@@ -62,11 +80,10 @@ export function buildTransformUrl(
         : "al_c"
     )
   }
-  params.push(`q_${quality}`, "usm_0.66_1.00_0.01", "enc_webp", "quality_auto")
-  const outputName = /\.gif$/i.test(filename)
-    ? filename
-    : filename.replace(/\.[a-z0-9]+$/i, "") + ".webp"
-  return `${baseUrl}/v1/${crop ? "fill" : "fit"}/${params.join(",")}/${outputName}`
+  // Preserve GIF delivery; negotiate AVIF/WebP for other images via Accept.
+  const encoding = /\.gif$/i.test(filename) ? "enc_webp" : "enc_auto"
+  params.push(`q_${quality}`, "usm_0.66_1.00_0.01", encoding, "quality_auto")
+  return `${baseUrl}/v1/${crop ? "fill" : "fit"}/${params.join(",")}/${filename}`
 }
 
 export function buildSrcSet(parsed, options) {

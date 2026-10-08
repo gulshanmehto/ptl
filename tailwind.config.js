@@ -7,25 +7,12 @@ module.exports = {
   		opacity: Object.fromEntries(Array.from({ length: 101 }, (_, i) => [i, `${i / 100}`])),
   		borderRadius: {
   			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 4px)',
-  			sm: 'calc(var(--radius) - 8px)'
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
-  			cream: '#f7f1e6',
-  			blush: {
-  				DEFAULT: '#e8437a',
-  				dark: '#cf2f63',
-  				light: '#fbe1ea'
-  			},
-  			ink: {
-  				DEFAULT: '#2c2620',
-  				soft: '#5d544b'
-  			},
-  			leaf: '#2f9e63',
-  			sage: '#8da08a',
-  			plum: '#3a1d2c',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -83,22 +70,25 @@ module.exports = {
   		},
   		keyframes: {
   			'accordion-down': {
-  				from: { height: '0' },
-  				to: { height: 'var(--radix-accordion-content-height)' }
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
   			},
   			'accordion-up': {
-  				from: { height: 'var(--radix-accordion-content-height)' },
-  				to: { height: '0' }
-  			},
-  			'fade-up': {
-  				from: { opacity: '0', transform: 'translateY(16px)' },
-  				to: { opacity: '1', transform: 'translateY(0)' }
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out',
-  			'fade-up': 'fade-up 0.6s ease-out both'
+  			'accordion-up': 'accordion-up 0.2s ease-out'
   		}
   	}
   },
